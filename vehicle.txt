@@ -1,0 +1,32 @@
+using System;
+using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+namespace Myconsole
+{
+    public class Vehicle
+    {
+        public static void Main(string[] args)
+        {
+            SortedList<int,string> s1=new SortedList<int,string();
+            s1.Add(2014, "suzuki");
+            s1.Add(2015,"Hyundai");
+            s1.Add(2016,"Baleno");
+            s1.Add(2018,"VW");
+            s1.Add(2010,"suzuki");
+            Console.WriteLine("Enter year");
+            int a=int.Parse(Console.ReadLine());
+            foreach(KeyValuePair<int,string> s2 in s1)
+            {
+               if(s2.Key==a)
+                  {
+		   Console.WriteLine(s2.Value);
+                   Console.ReadLine();
+		}
+            }
+           
+        }
+    }
+}
