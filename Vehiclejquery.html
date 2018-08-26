@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+    var array=[];
+    var newa=[];
+    var row=-1;
+    $(document).ready(function(){
+        $("#button").click(function(){
+            if(row!=-1){
+                array.splice(row,1,{year_1:$("#year_input").val(),make_1:$("#make_input").val(),model_1:$("#model_input").val()});
+                row=-1;
+            }
+            else{
+                array.push({
+                    year_1:$("#year_input").val(),
+                    make_1:$("#make_input").val(),
+                    model_1:$("#model_input").val()
+                });
+                $(this).dry('id',array);                
+        }
+        });
+        $("#searchvalue").click(function(){
+            var option=$("#option").val();
+            var input=$("#input_text").val();
+            newa=$.grep(array,function(n,k){
+                return n[option]==input;
+            });
+            $("#id_2").html("<tr><th>Year</th><th>Make</th><th>Model</th></tr>");
+            jQuery.each(newa,function(i,val){
+            $("#id_2").append("<tr><td>"+val.year_1+"</td><td>"+val.make_1+"</td><td>"+val.model_1+"</td></tr>");
+            });
+        });
+    });
+        $.fn.dry=function(id,array){
+            if(row==-1){
+                $("#"+id).html("<tr><th>Year</th><th>Make</th><th>Model</th></th></tr>");
+                jQuery.each(array,function(i,val){
+                    $("#"+id).append("<tr><td>"+val.year_1+"</td><td>"+val.make_1+"</td><td>"+val.model_1+"</td><td>"+"<button onclick="+delete_row("#"+id)+">Delete</button></td><tr>");
+                });
+            }
+        }
+        function delete_row(delete_id){
+            if(confirm("Are you sure?")){
+                array.splice(delete_id,1);
+                $(this).dry('id',array);
+            }
+        }
+        function edit_row(edit_id){
+            year_e=array[edit_id].year_1;
+            make_e=array[edit_id].make_1;
+            model_e=array[edit_id].model_1;
+            document.getElementById('year_input').value=year_e;
+            document.getElementById('make_input').value=make_e;
+            document.getElementById('model_input').value=model_e;
+            if(row!=edit_id){
+
+            }
+            $(this).dry('id',array);
+            row=edit_id;
+            alert(row);
+        }
+    
+    </script>
+</head>
+<body>
+<h3>Add Vehicles</h3>
+<div>
+<input type="text" id="year_input" placeholder="Enter year"/>
+<input type="text" id="make_input" placeholder="Enter make"/>
+<input type="text" id="model_input" placeholder="Enter model"/>
+<button id="button">ADD</button>
+<table id="id"></table>
+</div>
+<h3>Search Vehicles</h3>
+<div>
+<select id="option">
+<option value="year_1">year</option>
+<option value="model_1">model</option>
+<option value="make_1">make</option>
+</select>
+<input type="text" id="input_text"/>
+<button id="searchvalue">search</button>
+<table id="id_2"></table>
+</div>
+
+</body>
+</html>
