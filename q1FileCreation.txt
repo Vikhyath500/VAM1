@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.IO;
+
+namespace Myconsole
+{
+    public class Files
+    {
+        public static void Main(string[] args)
+        {
+           String path=@"D:\Vikhyath\Excercise\MyFile.txt";
+			if(!File.Exists(path))
+			{
+				StreamWriter wtofile=File.CreateText(path);
+				wtofile.WriteLine("File not present");
+				wtofile.WriteLine("Employee|Age|Designation|Manager Name|Skills");
+				wtofile.WriteLine("File created");
+				wtofile.Close();
+				
+			}
+			else{
+				StreamWriter wtofile=File.AppendText(path);
+				Console.WriteLine("Employee|Age|Designation|Manager Name|Skills");
+				var Employee=Console.ReadLine();
+				var Age=Console.ReadLine();
+				var Designation=Console.ReadLine();
+				var Manager_Name=Console.ReadLine();
+				var Skills=Console.ReadLine();
+				wtofile.WriteLine(Employee+"|"+Age+"|"+Designation+"|"+Manager_Name+"|"+Skills);
+				wtofile.Close();
+				
+			}
+			FileInfo f=new FileInfo(path);
+			Console.WriteLine("Length"+f.Length+"name"+f.FullName);
+			Console.ReadLine();
+    }
+}
+
+}

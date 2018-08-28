@@ -1,0 +1,75 @@
+using System;
+using System.Collections.Generic;
+namespace Generic
+{
+public class Program
+{
+	
+	/*public static void Add<T>(T num){
+		IList<int> intList = new List<int>();
+		//dynamic a=num;
+		intList.Add(10);
+		intList.Add(20);
+		intList.Add(30);
+		intList.Add(40);
+		 for (int i = 0; i < 4; i++)
+            {
+                Console.WriteLine(intList[i]);   //No unboxing
+            }
+		IList<string> strList = new List<string>();
+		 for (int i = 0; i < 4; i++)
+            {
+                Console.WriteLine(strList[i]);   //No unboxing
+            }
+		IList<float> floatList = new List<float>();
+		for (int i = 0; i < 4; i++)
+            {
+                Console.WriteLine(floatList[i]);   //No unboxing
+            }
+	}*/
+		
+	
+	 public static void Main()
+	{
+		//Program Add<T>=new Program();
+//p.Add(10);
+	
+		IList<int> intList = new List<int>();
+		intList.Add(10);
+		intList.Add(20);
+		intList.Add(30);
+		intList.Add(40);
+		for (int i = 0; i < 4; i++)
+            {
+                Console.WriteLine(intList[i]);   //No unboxing
+            }
+	
+	
+		
+	IList<string> strList = new List<string>();
+		strList.Add("one");
+		strList.Add("two");
+		strList.Add("three");
+		strList.Add("four");
+		strList.Add("four");
+		strList.Add(null);
+		strList.Add(null);
+		 for (int i = 0; i < 4; i++)
+            {
+                Console.WriteLine(strList[i]);   //No unboxing
+            }
+	
+		IList<float> floatList = new List<float>();
+		floatList.Add(1.0f);
+		floatList.Add(6.0f);
+		floatList.Add(3.0f);
+		floatList.Add(8.0f);
+		for (int i = 0; i < 4; i++)
+            {
+                Console.WriteLine(floatList[i]);   //No unboxing
+            }
+		
+	}
+	}
+}
+

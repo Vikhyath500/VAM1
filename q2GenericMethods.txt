@@ -1,0 +1,51 @@
+using System;
+using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.IO;
+
+namespace Generic
+{
+    public class GenMethod
+    {
+		public static T Add1<T>(T number1,T number2)
+		{
+			dynamic a=number1;
+			dynamic b=number2;
+			
+			return a+b;
+		}
+		public static T Mul1<T>(T number1,T number2)
+		{
+			dynamic a=number1;
+			dynamic b=number2;
+			
+			return a*b;
+		}
+		
+        public static void Main(string[] args)
+        {
+			GenMethod p=new GenMethod();
+			GenMethod p1=new GenMethod();
+			try{
+				
+		int c=Add1(12,10);
+			float d=Mul1(1.0f,3.0f);
+			string x=Add1("hello","World");
+			Console.WriteLine(c);
+			Console.WriteLine(d);
+			Console.WriteLine(x);
+			}
+			catch{
+				
+				Add1(p,p1);
+				Mul1(p,p1);
+				
+			}
+			Console.ReadLine();		
+			
+    }
+}
+
+}
