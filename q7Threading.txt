@@ -1,0 +1,38 @@
+using System;
+using System.Threading;
+
+public class MyThread {
+
+        public static int DoProcessing() {
+                for (int i = 0; i < 10; i++) {
+                        Console.WriteLine("Thread1 {0}", i);
+                        Thread.Sleep(1);
+                        
+                }
+        }
+
+        public static void DoCompute() {
+                for (int i = 0; i < 10; i++) {
+                        Console.WriteLine("Thread2 {0}", i);
+                        Thread.Sleep(2);
+                        Monitor.Wait(this );
+                }
+        }
+}
+
+public class MyClass {
+
+        public static void Main() {
+                Console.WriteLine("Before start thread");
+
+                Thread thread1 = new Thread(new ThreadStart(MyThread.DoProcessing ) );
+            
+                  Thread thread2 = new Thread(new ThreadStart(MyThread.DoCompute ) );
+               
+                thread1.Start();
+                thread2.Start();
+                
+   Thread thread = Thread.CurrentThread;
+   Console.WriteLine ("ThreadState: {0}", thread.ThreadState);
+        }
+}
