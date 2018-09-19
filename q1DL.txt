@@ -1,0 +1,3 @@
+create table departments(dept_id number not null primary key,dept_name varchar2(60));
+
+create table employee7(emp_id number not null primary key,emp_name varchar2(50),emp_dept_id number,emp_loc varchar2(60),emp_sal number,emp_status varchar2(3),constraint emp7_dept_fkey FOREIGN KEY(emp_dept_id) REFERENCES departments(dept_id));
