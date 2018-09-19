@@ -1,0 +1,47 @@
+Q5)How can I create a function that returns the period that correspond to a month?
+Function definition:-
+
+create or replace function returnperiod(passdate varchar2)
+   return varchar2
+is
+   startperiod date;
+   endperiod date;
+   temp date;
+
+begin
+
+   temp := TRUNC(TO_DATE(passdate, 'yyyy/mm/dd'),'MM');
+/*Input value is passed in date format and the corresponding day of the month is truncated to the 1st value of the month*/
+
+  
+   loop
+      exit when TO_NUMBER(TO_CHAR(temp,'d')) = 2;
+      temp := temp + 1;
+   end loop;
+/*The 1st day of the month is passed in the form of day of week(1-7) and converted to number,loop exits if value=2 i.e[Monday]*/
+
+   startperiod := temp;
+
+   endperiod:= startperiod + 27;
+/*Last sunday of month can be found by incrementing by 4 weeks minus the start day,i.e 27 days*/
+
+  
+   if TO_NUMBER(TO_CHAR(endperiod, 'dd')) < 30 then
+      endperiod := endperiod + 7;
+   end if;
+/*If Last sunday falls earlier than 30th then increment the endperiod by 7,ie by 1 week so that it moves to Sunday of next month*/
+
+   return startperiod|| ' - ' ||endperiod;
+
+end returnperiod ;
+
+Function Call:-
+
+
+declare
+p_date varchar2(200):=' 2018/10/19';
+return_date varchar2(200);
+begin
+return_date:=TO_NCHAR(returnperiod(p_date));
+dbms_output.put_line(return_date);
+end;
