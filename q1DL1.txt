@@ -1,0 +1,108 @@
+a)Create table department with columns department id and department names with department id as the primary key  
+
+create table departments(dept_id number not null primary key,dept_name varchar2(60));
+
+
+
+b)	Create table employee with columns employee id, department id, employee location, employee salary, employee status with department id being the foreign key and employee id being the primary key
+
+create table employee7(emp_id number not null primary key,emp_name varchar2(50),emp_dept_id number,emp_loc varchar2(60),emp_sal number,emp_status varchar2(3),constraint emp7_dept_fkey FOREIGN KEY(emp_dept_id) REFERENCES departments(dept_id));
+
+
+
+c)Insert a few records into the tables department, employee (Ex: Department Table: 1,'IT' ; Employee Table:10,'Tom',1,'CA',50000,'A' ) 
+
+insert into employee7 values(10,'John',1,'CA',25000,'C');
+insert into employee7 values(20,'Samuel',2,'CA',45000,'A');
+insert into employee7 values(40,'Max',1,'WA',60000,'A');
+insert into employee7 values(50,'Robert',2,'CA',35000,'B');
+
+
+
+
+d)Write a procedure to update the employee department and also to insert a new employee
+
+Procedure Definition:-
+create or replace procedure update_dept as
+l_emp_id employee7.emp_id%TYPE:=10;
+begin
+update employee7 
+SET emp_dept_id=2
+WHERE emp_id=l_emp_id;
+COMMIT;
+begin
+insert into employee7 values(60,'Susan',1,'WA',20000,'C');
+COMMIT;
+end;
+exception
+when others then
+dbms_output.put_line(sqlerrm);
+dbms_output.put_line(dbms_utility.format_error_backtrace);
+rollback;
+raise;
+end update_dept;
+
+Procedure call:-
+begin
+update_dept;
+end;
+
+
+
+
+e)Write a function to return 1 if the employee salary is less than 30000, 2 if employee salary is less than 60000 and 3 otherwise
+
+
+Function definition:-
+
+create or replace function emp_sal return number as
+CURSOR cur_salary IS
+SELECT emp_sal from employee7
+where emp_id=10;
+l_salary employee7.emp_sal%TYPE;
+begin
+OPEN cur_salary;
+FETCH cur_salary into l_salary;
+CLOSE cur_salary;
+if l_salary<30000 then
+return 1;
+elsif l_salary<60000 then
+return 2;
+else
+return 3;
+end if;
+exception
+when others then
+dbms_output.put_line(sqlerrm);
+raise;
+end emp_sal;
+
+Function call:-
+declare
+l_return NUMBER;
+begin
+l_return:=emp_sal;
+dbms_output.put_line(l_return);
+end;
+
+
+
+
+f)Write a procedure to increase the salary of all the employees by 50 percent 
+Procedure definition:-
+create or replace procedure inc_sal as
+begin
+update employee7
+SET emp_sal=emp_sal + (emp_sal*0.5);
+exception
+when others then
+dbms_output.put_line(sqlerrm);
+dbms_output.put_line(dbms_utility.format_error_backtrace);
+rollback;
+raise;
+end inc_sal;
+
+Procedure call:-
+begin
+inc_sal;
+end;
