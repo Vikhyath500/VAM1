@@ -1,0 +1,36 @@
+Q.Extract the filename including suffix from a full file path
+
+Function Definition:-
+
+CREATE or REPLACE function file_lastindex(lastpath IN VARCHAR2)
+   RETURN varchar2
+
+IS
+   file_var VARCHAR2(100);
+
+BEGIN
+  IF INSTR(lastpath,'\') > 0 THEN
+      file_var := SUBSTR(lastpath,(INSTR(lastpath,'\',-1,1)+1),length(lastpath));
+
+/*In INSTR it searches for the 1st occurance of '\' in 'lastpath' from backward direction since -1 is put and that value is put as Starting index for SUBSTR which returns length(lastpath) characters staring at index given by INSTR. +1 is added in INSTR to put move the index to next char after '\'. */
+
+   -- If no slashes were found, return the original string
+   ELSE
+      file_var := lastpath;
+
+   END IF;
+
+   RETURN file_var;
+
+END;
+
+
+Function call:-
+
+declare
+l_file varchar2(30);
+begin
+l_file:=file_lastindex('E:\Project\webapps\bin\src\index.html');
+dbms_output.put_line(l_file);
+end;
+

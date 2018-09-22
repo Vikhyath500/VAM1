@@ -1,0 +1,34 @@
+2.Create a function that parse the string value and returns a sub-string between the second and third sub-string (the symbol \ will differentiate substrings)
+
+Function Definiton:-
+
+CREATE or REPLACE function file_parseindex(filepath IN VARCHAR2)
+   RETURN varchar2
+
+IS
+   file_var VARCHAR2(100);
+
+BEGIN
+  IF INSTR(filepath,'\') > 0 THEN
+      file_var := SUBSTR(filepath,INSTR(filepath,'\',1,2)+1,INSTR(filepath,'\',1,3)-INSTR(filepath,'\',1,2)-1);
+
+/*In INSTR it searches for the 2nd occurance of '\' in 'filepath' and that value is put as Starting index for SUBSTR which returns characters staring at index given by 2nd INSTR in which it searches for occurance of 3rd '\' minus occurance of  2nd '\' to give index postition of substring between 2nd and 3rd '\'. +1 is added in 1st INSTR to put move the index to next char after '\'.-1 is added in 2nd INSTR to to decrement the index postion by 1 */
+
+   -- If no slashes were found, return the original string
+   ELSE
+      file_var := filepath;
+
+   END IF;
+
+   RETURN file_var;
+
+END;
+
+Function Call:-
+
+declare
+l_file varchar2(30);
+begin
+l_file:=file_parseindex('F:\Siebfile\YD\S_SR_ATT_1-60SS_1-AM3L.SAF');
+dbms_output.put_line(l_file);
+end;
